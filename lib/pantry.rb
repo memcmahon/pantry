@@ -1,11 +1,13 @@
 
 class Pantry
   attr_reader :stock,
-              :shopping_list
+              :shopping_list,
+              :cookbook
 
   def initialize
     @stock         = {}
     @shopping_list = {}
+    @cookbook      = []
   end
 
   def stock
@@ -44,5 +46,9 @@ class Pantry
       text = text + "* #{item}: #{amount}\n"
     end
     text.chomp
+  end
+
+  def add_to_cookbook(recipe)
+    @cookbook << recipe
   end
 end
