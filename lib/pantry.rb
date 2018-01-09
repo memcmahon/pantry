@@ -52,25 +52,36 @@ class Pantry
     @cookbook << recipe
   end
 
-  def what_can_i_make
-    recipes_i_can_make.map do |recipe|
-      recipe.name
-    end
-  end
-
-  def how_many_can_i_make
-    recipes = what_can_i_make.map do |recipe_name|
-      @cookbook.select do |recipe|
-        recipe.name == recipe_name
-      end
-    end
-  end
-
   def recipes_i_can_make
     @cookbook.select do |recipe|
       recipe.ingredients.all? do |ingredient|
         stock_check(ingredient[0]) >= ingredient[1]
       end
     end
+  end
+
+  def what_can_i_make
+    recipes_i_can_make.map do |recipe|
+      recipe.name
+    end
+  end
+
+  def quantity_count(recipe)
+    recipe.ingredients.map do |ingredient|
+      stock_check(ingredient[0]) / ingredient[1]
+    end
+  end
+
+  def how_many_can_i_make
+    result = recipes_i_can_make.map do |recipe|
+      {recipe.name => quantity_count(recipe).min}
+    end
+    arrayed_hash_cleanup(result)
+  end
+
+  def arrayed_hash_cleanup(collection)
+    collection.map do |pair|
+      pair.to_a
+    end.flatten
   end
 end

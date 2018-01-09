@@ -143,7 +143,6 @@ class PantryTest < Minitest::Test
   end
 
   def test_it_can_tell_how_much_of_each_recipe_can_be_made
-    skip
     pantry = Pantry.new
 
     r1 = Recipe.new("Cheese Pizza")
