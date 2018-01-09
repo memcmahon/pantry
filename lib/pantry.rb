@@ -24,9 +24,17 @@ class Pantry
     @stock[item] = stock_check(item) + amount
   end
 
+  def shopping_list_check(item)
+    if @shopping_list[item].nil?
+      0
+    else
+      @shopping_list[item]
+    end
+  end
+
   def add_to_shopping_list(recipe)
     recipe.ingredients.each do |item, amount|
-      @shopping_list[item] = amount
+      @shopping_list[item] = shopping_list_check(item) + amount
     end
   end
 end
