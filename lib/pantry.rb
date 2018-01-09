@@ -53,12 +53,24 @@ class Pantry
   end
 
   def what_can_i_make
+    recipes_i_can_make.map do |recipe|
+      recipe.name
+    end
+  end
+
+  def how_many_can_i_make
+    recipes = what_can_i_make.map do |recipe_name|
+      @cookbook.select do |recipe|
+        recipe.name == recipe_name
+      end
+    end
+  end
+
+  def recipes_i_can_make
     @cookbook.select do |recipe|
       recipe.ingredients.all? do |ingredient|
         stock_check(ingredient[0]) >= ingredient[1]
       end
-    end.map do |recipe|
-      recipe.name
     end
   end
 end
