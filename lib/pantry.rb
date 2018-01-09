@@ -82,6 +82,6 @@ class Pantry
   def arrayed_hash_cleanup(collection)
     collection.map do |pair|
       pair.to_a
-    end.flatten
+    end.flatten(1).to_h
   end
 end
