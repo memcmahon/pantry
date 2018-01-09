@@ -37,4 +37,12 @@ class Pantry
       @shopping_list[item] = shopping_list_check(item) + amount
     end
   end
+
+  def print_shopping_list
+    text = ""
+    @shopping_list.each do |item, amount|
+      text = text + "* #{item}: #{amount}\n"
+    end
+    text.chomp
+  end
 end
